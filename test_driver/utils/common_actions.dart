@@ -103,7 +103,9 @@ Future<void> logout(FlutterDriver driver, TestLocalization localization) async {
 }
 
 Future<void> viewSection(
-    {required FlutterDriver driver, required String name, TestLocalization? localization}) async {
+    {required FlutterDriver driver,
+    required String name,
+    TestLocalization? localization}) async {
   if (await isMobile(driver)) {
     await driver.tap(find.byTooltip('Menu Sidebar'));
   }
@@ -112,7 +114,9 @@ Future<void> viewSection(
 }
 
 Future<void> fillTextField(
-    {required FlutterDriver driver, String? field, required String value}) async {
+    {required FlutterDriver driver,
+    String? field,
+    required String value}) async {
   await driver.tap(find.byValueKey(field));
   await driver.enterText(value);
 }
@@ -178,7 +182,8 @@ Future<void> testArchiveAndDelete(
 
   print('Restore record');
   if (mobile)
-    await driver.scrollUntilVisible(find.byType('ListView'), find.text(rowText!),
+    await driver.scrollUntilVisible(
+        find.byType('ListView'), find.text(rowText!),
         dyScroll: -300);
 
   //await driver.tap(find.text(rowText));
@@ -193,7 +198,8 @@ Future<void> testArchiveAndDelete(
 
   print('Restore record');
   if (mobile)
-    await driver.scrollUntilVisible(find.byType('ListView'), find.text(rowText!),
+    await driver.scrollUntilVisible(
+        find.byType('ListView'), find.text(rowText!),
         dyScroll: -300);
   //await driver.tap(find.text(rowText));
   await selectAction(driver, localization.restore);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:invoiceninja_flutter/utils/localization.dart';
 import 'package:redux/redux.dart';
 
 // Project imports:
@@ -13,7 +12,7 @@ import 'package:invoiceninja_flutter/redux/auth/auth_actions.dart';
 class InitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final localization = AppLocalization.of(context)!;
+    // final localization = AppLocalization.of(context)!;
 
     return StoreBuilder(
         onInit: (Store<AppState> store) =>
@@ -26,7 +25,14 @@ class InitScreen extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: SizedBox()),
                 Expanded(
-                  child: Center(child: Image.asset('assets/images/icon.png')),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo_dark.png',
+                      width: 175,
+                      height: 175,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Stack(
@@ -35,17 +41,17 @@ class InitScreen extends StatelessWidget {
                       SizedBox(
                         height: 50,
                         width: 100,
-                        child: Material(
-                          child: ElevatedButton(
-                            child: Text(
-                              localization.logout.toUpperCase(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              store.dispatch(UserLogout());
-                            },
-                          ),
-                        ),
+                        // child: Material(
+                        //   child: ElevatedButton(
+                        //     child: Text(
+                        //       localization.logout.toUpperCase(),
+                        //       style: TextStyle(color: Colors.white),
+                        //     ),
+                        //     onPressed: () {
+                        //       store.dispatch(UserLogout());
+                        //     },
+                        //   ),
+                        // ),
                       ),
                     ],
                   ),

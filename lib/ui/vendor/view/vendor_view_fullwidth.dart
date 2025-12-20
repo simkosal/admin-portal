@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:invoiceninja_flutter/constants.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 import 'package:invoiceninja_flutter/data/models/entities.dart';
 import 'package:invoiceninja_flutter/redux/app/app_state.dart';
 import 'package:invoiceninja_flutter/redux/vendor/vendor_selectors.dart';
@@ -375,7 +376,7 @@ class _VendorViewFullwidthState extends State<VendorViewFullwidth>
                                 ],
                               ),
                               if (company.isModuleEnabled(EntityType.document))
-                                RefreshIndicator(
+                                AppRefreshIndicator(
                                   onRefresh: () =>
                                       viewModel.onRefreshed(context),
                                   child: VendorViewDocuments(
@@ -383,7 +384,7 @@ class _VendorViewFullwidthState extends State<VendorViewFullwidth>
                                     key: ValueKey(viewModel.vendor.id),
                                   ),
                                 ),
-                              RefreshIndicator(
+                              AppRefreshIndicator(
                                 onRefresh: () => viewModel.onRefreshed(context),
                                 child: VendorViewActivity(
                                   viewModel: viewModel,

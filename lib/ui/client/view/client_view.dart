@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -153,46 +154,46 @@ class _ClientViewState extends State<ClientView>
               child: TabBarView(
                 controller: _controller,
                 children: <Widget>[
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientOverview(
                       viewModel: viewModel,
                       isFilter: widget.isFilter,
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewDetails(client: viewModel.client),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewDocuments(
                       viewModel: viewModel,
                       key: ValueKey(viewModel.client.id),
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewLocations(
                       viewModel: viewModel,
                       key: ValueKey(viewModel.client.id),
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewLedger(
                       viewModel: viewModel,
                       key: ValueKey(viewModel.client.id),
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewActivity(
                       viewModel: viewModel,
                       key: ValueKey(viewModel.client.id),
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: ClientViewSystemLogs(
                       viewModel: viewModel,

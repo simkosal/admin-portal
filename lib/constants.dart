@@ -3,23 +3,39 @@ import 'package:invoiceninja_flutter/data/models/import_model.dart';
 class Constants {
   //static String get hostedApiUrl => kReleaseMode ? kAppProductionUrl : kAppStagingUrl;
   static String get hostedApiUrl => kAppProductionUrl;
+
+  static const String baseUrl = 'https://baramey-api.mearkea.com/';
+
+  static const String site = 'https://baramey.mearkea.com/';
 }
 
 // TODO remove version once #46609 is fixed
 const String kClientVersion = '5.0.175';
 const String kMinServerVersion = '5.0.4';
 
-const String kAppName = 'Invoice Ninja';
-const String kSiteUrl = 'https://invoiceninja.com';
-const String kAppProductionUrl = 'https://invoicing.co';
-const String kAppReactUrl = 'https://app.invoicing.co';
-const String kAppStagingUrl = 'https://staging.invoicing.co';
-const String kAppStagingNetUrl = 'https://invoiceninja.net';
-const String kAppLargeTestUrl = 'https://testv5.invoicing.co';
-const String kFlutterDemoUrl = 'https://demo.invoiceninja.com';
+// const String kAppName = 'Invoice Ninja';
+// const String kSiteUrl = 'https://invoiceninja.com';
+// const String kAppProductionUrl = 'https://invoicing.co';
+// const String kAppReactUrl = 'https://app.invoicing.co';
+// const String kAppStagingUrl = 'https://staging.invoicing.co';
+// const String kAppStagingNetUrl = 'https://invoiceninja.net';
+// const String kAppLargeTestUrl = 'https://testv5.invoicing.co';
+// const String kFlutterDemoUrl = 'https://demo.invoiceninja.com';
+
+const String kAppName = 'Baramey';
+const String kSiteUrl = Constants.site;
+const String kAppProductionUrl = Constants.baseUrl;
+const String kAppReactUrl = Constants.baseUrl;
+const String kAppStagingUrl = Constants.baseUrl;
+const String kAppStagingNetUrl = Constants.baseUrl;
+const String kAppLargeTestUrl = Constants.baseUrl;
+const String kFlutterDemoUrl = Constants.baseUrl;
+
+const String kWhiteLabelUrl = Constants.site;
+
 const String kReactDemoUrl = 'https://react.invoicing.co/demo';
-const String kWhiteLabelUrl =
-    'https://invoiceninja.invoicing.co/client/subscriptions/O5xe7Rwd7r/purchase?account_key=AsFmBAeLXF0IKf7tmi0eiyZfmWW9hxMT&product_id=3';
+// const String kWhiteLabelUrl =
+//     'https://invoiceninja.invoicing.co/client/subscriptions/O5xe7Rwd7r/purchase?account_key=AsFmBAeLXF0IKf7tmi0eiyZfmWW9hxMT&product_id=3';
 const String kPrivacyPolicyURL = 'https://www.invoiceninja.com/privacy-policy';
 const String kTermsOfServiceURL = 'https://www.invoiceninja.com/terms';
 const String kBankingURL = 'https://invoiceninja.com/banking';
@@ -820,7 +836,8 @@ const kTransactionStatuses = {
 const String kDefaultCurrencyId = '1';
 const String kDefaultLanguageId = '1';
 const String kDefaultDateFormat = '5';
-const String kDefaultAccentColor = '#2F7DC3';
+// const String kDefaultAccentColor = '#2F7DC3';
+const String kDefaultAccentColor = '#7C0012';
 const String kDefaultDarkSelectedColorMenu = '#1E252F';
 const String kDefaultDarkSelectedColor = '#253750';
 const String kDefaultDarkBorderColor = '#393A3C';

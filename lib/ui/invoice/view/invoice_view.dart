@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -162,7 +163,7 @@ class _InvoiceViewState extends State<InvoiceView>
                   child: TabBarView(
                     controller: _controller,
                     children: <Widget>[
-                      RefreshIndicator(
+                      AppRefreshIndicator(
                         onRefresh: () => viewModel.onRefreshed!(context),
                         child: InvoiceOverview(
                           viewModel: viewModel,
@@ -171,7 +172,7 @@ class _InvoiceViewState extends State<InvoiceView>
                               '${viewModel.invoice!.id}-${viewModel.invoice!.loadedAt}'),
                         ),
                       ),
-                      RefreshIndicator(
+                      AppRefreshIndicator(
                         onRefresh: () => viewModel.onRefreshed!(context),
                         child: InvoiceViewContacts(
                           viewModel: viewModel,
@@ -180,7 +181,7 @@ class _InvoiceViewState extends State<InvoiceView>
                         ),
                       ),
                       if (company.isModuleEnabled(EntityType.document))
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed!(context),
                           child: InvoiceViewDocuments(
                               viewModel: viewModel,
@@ -189,7 +190,7 @@ class _InvoiceViewState extends State<InvoiceView>
                                   '${viewModel.invoice!.id}-${viewModel.invoice!.loadedAt}')),
                         ),
                       if (invoice.isRecurring)
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed!(context),
                           child: InvoiceViewSchedule(
                             viewModel: viewModel,
@@ -198,14 +199,14 @@ class _InvoiceViewState extends State<InvoiceView>
                           ),
                         ),
                       if (!invoice.isRecurring)
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed!(context),
                           child: InvoiceViewHistory(
                               viewModel: viewModel,
                               key: ValueKey(
                                   '${viewModel.invoice!.id}-${viewModel.invoice!.loadedAt}')),
                         ),
-                      RefreshIndicator(
+                      AppRefreshIndicator(
                         onRefresh: () => viewModel.onRefreshed!(context),
                         child: InvoiceViewActivity(
                             viewModel: viewModel,

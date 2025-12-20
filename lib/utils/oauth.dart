@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -8,6 +9,8 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
     'profile',
     //'https://www.googleapis.com/auth/gmail.send',
   ],
+  serverClientId:
+      '333142083765-m2bntjbnrtt0m2699l019mcbpmdsb1ku.apps.googleusercontent.com',
 );
 
 class GoogleOAuth {
@@ -40,6 +43,7 @@ class GoogleOAuth {
 
   static Future<bool> signUp(Function(String, String) callback) async {
     final account = await _googleSignIn.signIn();
+    debugPrint('dataAccount:${account.toString()}');
     if (account != null) {
       account.authentication.then((GoogleSignInAuthentication value) {
         callback(

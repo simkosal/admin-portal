@@ -100,7 +100,7 @@ class DismissibleEntity extends StatelessWidget {
                 else if (entity.isRestorable)
                   SlidableAction(
                     label: localization.restore,
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xFF7C0012),
                     foregroundColor: Colors.white,
                     icon: Icons.restore,
                     onPressed: (context) =>

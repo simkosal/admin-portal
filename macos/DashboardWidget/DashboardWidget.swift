@@ -314,7 +314,7 @@ struct DashboardWidgetEntryView : View {
     
     var accentColor: Color {
         let companyId = entry.configuration.company?.identifier ?? ""
-        return Color(hex: (entry.widgetData?.companies[companyId]?.accentColor ?? "#2F7DC3")!)
+        return Color(hex: (entry.widgetData?.companies[companyId]?.accentColor ?? "#7C0012")!)
     }
     
     var companyName: String {

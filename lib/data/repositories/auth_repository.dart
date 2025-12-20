@@ -243,12 +243,45 @@ class AuthRepository {
     if (Config.DEMO_MODE) {
       response = json.decode(kMockLogin);
     } else {
+      debugPrint('data:${data.toString()}');
       response = await webClient.post(url, token ?? '',
           secret: secret, data: json.encode(data));
     }
+    dynamic result;
+    if (containsColorValue(response, '#2F7DC3')) {
+      result = replaceColorValue(response, '#2F7DC3', '#7C0012');
+    } else {
+      result = response;
+    }
 
     return await compute<dynamic, dynamic>(SerializationUtils.deserializeWith,
-        <dynamic>[LoginResponse.serializer, response]);
+        <dynamic>[LoginResponse.serializer, result]);
+  }
+
+  bool containsColorValue(dynamic json, String targetColor) {
+    if (json is Map) {
+      return json.values.any((value) => containsColorValue(value, targetColor));
+    } else if (json is List) {
+      return json.any((item) => containsColorValue(item, targetColor));
+    } else if (json is String) {
+      return json.toUpperCase() == targetColor.toUpperCase();
+    }
+    return false;
+  }
+
+  dynamic replaceColorValue(dynamic json, String targetColor, String newColor) {
+    if (json is Map) {
+      return json.map((key, value) =>
+          MapEntry(key, replaceColorValue(value, targetColor, newColor)));
+    } else if (json is List) {
+      return json
+          .map((item) => replaceColorValue(item, targetColor, newColor))
+          .toList();
+    } else if (json is String &&
+        json.toUpperCase() == targetColor.toUpperCase()) {
+      return newColor;
+    }
+    return json;
   }
 
   String get _tokenName => kIsWeb

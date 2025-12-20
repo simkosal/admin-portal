@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -109,14 +110,14 @@ class _TaskViewState extends State<TaskView>
                   ? TabBarView(
                       controller: _controller,
                       children: <Widget>[
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed(context),
                           child: TaskOverview(
                             viewModel: viewModel,
                             isFilter: widget.isFilter,
                           ),
                         ),
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed(context),
                           child: TaskViewDocuments(
                             viewModel: viewModel,
@@ -125,7 +126,7 @@ class _TaskViewState extends State<TaskView>
                         ),
                       ],
                     )
-                  : RefreshIndicator(
+                  : AppRefreshIndicator(
                       onRefresh: () => viewModel.onRefreshed(context),
                       child: TaskOverview(
                         viewModel: viewModel,

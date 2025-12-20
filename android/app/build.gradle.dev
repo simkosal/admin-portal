@@ -43,9 +43,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.invoiceninja.app"
+        applicationId "com.baramey.app.kh""
         minSdkVersion 19
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

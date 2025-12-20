@@ -1,4 +1,4 @@
-package com.invoiceninja.app
+package com.baramey.app.kh
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterFragmentActivity

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 import 'package:invoiceninja_flutter/ui/app/tables/app_paginated_data_table.dart';
 import 'package:overflow_view/overflow_view.dart';
 
@@ -335,7 +336,7 @@ class _EntityListState extends State<EntityList> {
             [])
         .whereNotNull();
 
-    return RefreshIndicator(
+    return AppRefreshIndicator(
         onRefresh: () => widget.onRefreshed(context),
         child: Column(
           children: [

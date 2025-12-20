@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -118,7 +119,7 @@ class _TaskOverviewState extends State<TaskOverview> {
           statusColor: task.isInvoiced
               ? Colors.green
               : task.isRunning
-                  ? Colors.blue
+                  ? Color(0xFF7C0012)
                   : null,
           label: localization!.duration,
           value: formatDuration(task.calculateDuration()),
@@ -216,7 +217,7 @@ class _TaskOverviewState extends State<TaskOverview> {
       return widgets;
     }
 
-    return RefreshIndicator(
+    return AppRefreshIndicator(
       onRefresh: () => viewModel.onRefreshed(context),
       child: ScrollableListView(
         children: _buildView(),

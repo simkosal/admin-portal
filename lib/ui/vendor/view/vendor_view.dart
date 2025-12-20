@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -139,19 +140,19 @@ class _VendorViewState extends State<VendorView>
               child: TabBarView(
                 controller: _controller,
                 children: <Widget>[
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: VendorOverview(
                       viewModel: viewModel,
                       isFilter: widget.isFilter,
                     ),
                   ),
-                  RefreshIndicator(
+                  AppRefreshIndicator(
                     onRefresh: () => viewModel.onRefreshed(context),
                     child: VendorViewDetails(vendor: viewModel.vendor),
                   ),
                   if (company.isModuleEnabled(EntityType.document))
-                    RefreshIndicator(
+                    AppRefreshIndicator(
                       onRefresh: () => viewModel.onRefreshed(context),
                       child: VendorViewDocuments(
                         viewModel: viewModel,

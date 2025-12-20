@@ -50,7 +50,7 @@ class _FormColorPickerState extends State<FormColorPicker> {
     Colors.deepPurple,
     Colors.indigo,
     convertHexStringToColor(kDefaultAccentColor) ?? Colors.black,
-    Colors.blue,
+    Color(0xFF7C0012),
     Colors.lightBlue,
     Colors.cyan,
     Colors.teal,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:invoiceninja_flutter/constants.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 import 'package:invoiceninja_flutter/data/models/company_gateway_model.dart';
 import 'package:invoiceninja_flutter/data/models/company_model.dart';
 import 'package:invoiceninja_flutter/data/models/entities.dart';
@@ -493,7 +494,7 @@ class _ClientViewFullwidthState extends State<ClientViewFullwidth>
                                   ),
                                 ),
                               if (company.isModuleEnabled(EntityType.document))
-                                RefreshIndicator(
+                                AppRefreshIndicator(
                                   onRefresh: () =>
                                       viewModel.onRefreshed(context),
                                   child: ClientViewDocuments(
@@ -501,28 +502,28 @@ class _ClientViewFullwidthState extends State<ClientViewFullwidth>
                                     key: ValueKey(viewModel.client.id),
                                   ),
                                 ),
-                              RefreshIndicator(
+                              AppRefreshIndicator(
                                 onRefresh: () => viewModel.onRefreshed(context),
                                 child: ClientViewLocations(
                                   viewModel: viewModel,
                                   key: ValueKey(viewModel.client.id),
                                 ),
                               ),
-                              RefreshIndicator(
+                              AppRefreshIndicator(
                                 onRefresh: () => viewModel.onRefreshed(context),
                                 child: ClientViewLedger(
                                   viewModel: viewModel,
                                   key: ValueKey(viewModel.client.id),
                                 ),
                               ),
-                              RefreshIndicator(
+                              AppRefreshIndicator(
                                 onRefresh: () => viewModel.onRefreshed(context),
                                 child: ClientViewActivity(
                                   viewModel: viewModel,
                                   key: ValueKey(viewModel.client.id),
                                 ),
                               ),
-                              RefreshIndicator(
+                              AppRefreshIndicator(
                                 onRefresh: () => viewModel.onRefreshed(context),
                                 child: ClientViewSystemLogs(
                                   viewModel: viewModel,

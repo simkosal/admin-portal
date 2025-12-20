@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 import 'package:invoiceninja_flutter/redux/invoice/invoice_selectors.dart';
 import 'package:invoiceninja_flutter/redux/payment/payment_actions.dart';
 import 'package:invoiceninja_flutter/ui/payment/view/payment_view_documents.dart';
@@ -110,7 +111,7 @@ class _PaymentViewState extends State<PaymentView>
                     ? TabBarView(
                         controller: _controller,
                         children: <Widget>[
-                          RefreshIndicator(
+                          AppRefreshIndicator(
                             onRefresh: () => viewModel.onRefreshed(context),
                             child: PaymentOverview(
                               viewModel: viewModel,
@@ -118,7 +119,7 @@ class _PaymentViewState extends State<PaymentView>
                               isFilter: widget.isFilter,
                             ),
                           ),
-                          RefreshIndicator(
+                          AppRefreshIndicator(
                             onRefresh: () => viewModel.onRefreshed(context),
                             child: PaymentViewDocuments(
                               viewModel: viewModel,
@@ -127,7 +128,7 @@ class _PaymentViewState extends State<PaymentView>
                           ),
                         ],
                       )
-                    : RefreshIndicator(
+                    : AppRefreshIndicator(
                         onRefresh: () => viewModel.onRefreshed(context),
                         child: PaymentOverview(
                           viewModel: viewModel,

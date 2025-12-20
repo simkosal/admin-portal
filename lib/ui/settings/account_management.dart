@@ -614,7 +614,7 @@ class _AccountOverview extends StatelessWidget {
                 child: AppButton(
                   label: localization.apiDocs.toUpperCase(),
                   iconData: isMobile(context) ? null : MdiIcons.bookshelf,
-                  onPressed: () => launchUrl(Uri.parse(kApiDocsUrl)),
+                  onPressed: () => launchUrl(Uri.parse(kWhiteLabelUrl)),
                 ),
               ),
               SizedBox(width: kGutterWidth),
@@ -622,7 +622,7 @@ class _AccountOverview extends StatelessWidget {
                 child: AppButton(
                   label: 'Zapier',
                   iconData: isMobile(context) ? null : MdiIcons.cloud,
-                  onPressed: () => launchUrl(Uri.parse(kZapierUrl)),
+                  onPressed: () => launchUrl(Uri.parse(kWhiteLabelUrl)),
                 ),
               ),
             ])),

@@ -339,13 +339,13 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
           final locale = AppLocalization.createLocale(localeSelector(state));
           _initTimeago();
 
-          final textButtonTheme = TextButton.styleFrom(
-            minimumSize: Size(88, 36),
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
-            ),
-          );
+          // final textButtonTheme = TextButton.styleFrom(
+          //   minimumSize: Size(88, 36),
+          //   padding: EdgeInsets.symmetric(horizontal: 16),
+          //   shape: const RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
+          //   ),
+          // );
 
           final outlinedButtonTheme = OutlinedButton.styleFrom(
             foregroundColor:
@@ -428,8 +428,6 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
                           canvasColor: Colors.black,
                           cardColor: const Color(0xFF1B1C1E),
                           primaryColorDark: Colors.black,
-                          textButtonTheme:
-                              TextButtonThemeData(style: textButtonTheme),
                           outlinedButtonTheme: OutlinedButtonThemeData(
                               style: outlinedButtonTheme),
                           colorScheme: ColorScheme.dark().copyWith(
@@ -446,28 +444,86 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
                             waitDuration: Duration(milliseconds: 500),
                           ),
                           pageTransitionsTheme: pageTransitionsTheme,
-                          primaryColor: accentColor,
+                          primaryColor: hasAccentColor
+                              ? accentColor
+                              : const Color(0xFFb93700),
                           indicatorColor: accentColor,
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: hasAccentColor
+                                  ? accentColor
+                                  : const Color(0xFF7C0012), // for text & icon
+                              textStyle: const TextStyle(fontSize: 16),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                            ),
+                          ),
                           textSelectionTheme: TextSelectionThemeData(
-                            selectionColor: accentColor,
+                            cursorColor: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFFb93700),
+                            selectionColor: Color(
+                                0x33FFCDD2), // Optional: highlight selection color
+                            selectionHandleColor: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFFb93700),
                           ),
                           fontFamily: fontFamily,
                           canvasColor: Colors.white,
                           cardColor: Colors.white,
                           primaryColorDark: hasAccentColor
                               ? accentColor
-                              : const Color(0xFF0D5D91),
+                              : const Color(0xFF7C0012),
                           primaryColorLight: hasAccentColor
                               ? accentColor
-                              : const Color(0xFF5dabf4),
+                              : const Color(0xFFb93700),
                           scaffoldBackgroundColor: const Color(0xFFF3F4F6),
+                          progressIndicatorTheme: ProgressIndicatorThemeData(
+                            color: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFF7C0012),
+                          ),
+                          inputDecorationTheme: InputDecorationTheme(
+                            prefixIconColor: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFF7C0012),
+                            suffixIconColor: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFF7C0012),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF7C0012)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(0xFF7C0012), width: 2.0),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF7C0012)),
+                            ),
+                            focusColor: Color(0xFF7C0012),
+                            labelStyle: TextStyle(color: Color(0xFF7C0012)),
+                          ),
+                          toggleButtonsTheme: ToggleButtonsThemeData(
+                            selectedColor: Colors.white,
+                            color: Colors.black,
+                            fillColor: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFF7C0012),
+                            borderColor: Colors.grey,
+                            selectedBorderColor: Colors.blue,
+                            borderRadius: BorderRadius.circular(8),
+                            borderWidth: 0.5,
+                            textStyle: TextStyle(fontSize: 16),
+                          ),
                           tabBarTheme: TabBarTheme(
+                            indicatorColor: Color(0xFF7C0012),
                             labelColor:
-                                hasAccentColor ? Colors.white : Colors.black,
+                                hasAccentColor ? Colors.white : Colors.black54,
                             unselectedLabelColor: hasAccentColor
                                 ? Colors.white.withOpacity(.65)
                                 : Colors.black.withOpacity(.65),
                           ),
+
                           iconTheme: IconThemeData(
                             color: hasAccentColor ? null : accentColor,
                           ),
@@ -483,14 +539,18 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
                                     ? Colors.white
                                     : Colors.black),
                           ),
-                          textButtonTheme:
-                              TextButtonThemeData(style: textButtonTheme),
                           outlinedButtonTheme: OutlinedButtonThemeData(
                               style: outlinedButtonTheme),
                           colorScheme: ColorScheme.fromSwatch().copyWith(
-                            secondary: accentColor,
+                            secondary: hasAccentColor
+                                ? accentColor
+                                : const Color(0xFFb93700),
                             background: Colors.white,
                           ),
+
+                          // colorSchemeSeed: hasAccentColor
+                          //     ? accentColor
+                          //     : const Color(0xFFb93700),
                           bottomAppBarTheme:
                               BottomAppBarTheme(color: Colors.white),
                         ),

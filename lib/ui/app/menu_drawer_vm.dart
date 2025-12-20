@@ -1,6 +1,5 @@
 // Flutter imports:
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -35,7 +34,7 @@ class MenuDrawerBuilder extends StatelessWidget {
     return StoreConnector<AppState, MenuDrawerVM>(
       converter: MenuDrawerVM.fromStore,
       builder: (context, viewModel) {
-        return MenuDrawer(viewModel: viewModel);
+        return MenuDrawer(key: key, viewModel: viewModel);
       },
     );
   }
@@ -73,9 +72,9 @@ class MenuDrawerVM {
       selectedCompany: state.company,
       selectedCompanyIndex: state.uiState.selectedCompanyIndex.toString(),
       onLogoutTap: (BuildContext context) {
-        if (state.isDemo && kReleaseMode) {
-          return;
-        }
+        // if (state.isDemo && kReleaseMode) {
+        //   return;
+        // }
         confirmCallback(
             message: AppLocalization.of(context)!.logout,
             context: context,

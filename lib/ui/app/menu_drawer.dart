@@ -245,6 +245,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
       onSelected: (String companyId) {
         if (companyId == 'logout') {
           widget.viewModel.onLogoutTap(context);
+          print('logout');
         } else if (state.isLoading) {
           showMessageDialog(message: localization.waitForLoading);
           return;
@@ -270,26 +271,52 @@ class _MenuDrawerState extends State<MenuDrawer> {
         : SizedBox(
             height: kTopBottomBarHeight,
             child: AppDropdownButton<String>(
-              key: ValueKey(kSelectCompanyDropdownKey),
-              value: widget.viewModel.selectedCompanyIndex,
-              selectedItemBuilder: (context) => state.companies
-                  .map((company) =>
-                      _companyListItem(company, showAccentColor: false))
-                  .toList(),
+              key: const ValueKey(kSelectCompanyDropdownKey),
+              value: widget.viewModel.selectedCompanyIndex, // ✅ must be String
+              showBlank: false, // or true if you want fallback
+              blankValue: '', // fallback for invalid value
+              blankLabel: 'Select Company',
+              selectedItemBuilder: (context) => [
+                ...state.companies
+                    .map((company) =>
+                        _companyListItem(company, showAccentColor: false))
+                    .toList(),
+                if (state.canAddCompany)
+                  Row(
+                    children: [
+                      const SizedBox(width: 2),
+                      const Icon(Icons.add_circle, size: 32),
+                      const SizedBox(width: 15),
+                      Text(localization.addCompany,
+                          style: Theme.of(context).textTheme.titleMedium),
+                    ],
+                  ),
+                Row(
+                  children: [
+                    const SizedBox(width: 2),
+                    const Icon(Icons.logout, size: 32),
+                    const SizedBox(width: 15),
+                    Text(localization.logout,
+                        style: Theme.of(context).textTheme.titleMedium),
+                  ],
+                ),
+              ],
               items: [
                 ...state.companies
-                    .map((CompanyEntity company) => DropdownMenuItem<String>(
-                        value: state.companies.indexOf(company).toString(),
-                        child: _companyListItem(company)))
-                    .toList(),
+                    .asMap()
+                    .entries
+                    .map((entry) => DropdownMenuItem<String>(
+                          value: entry.key.toString(),
+                          child: _companyListItem(entry.value),
+                        )),
                 if (state.canAddCompany)
                   DropdownMenuItem<String>(
                     value: 'company',
                     child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 2),
-                        Icon(Icons.add_circle, size: 32),
-                        SizedBox(width: 15),
+                      children: [
+                        const SizedBox(width: 2),
+                        const Icon(Icons.add_circle, size: 32),
+                        const SizedBox(width: 15),
                         Text(
                           localization.addCompany,
                           style: Theme.of(context).textTheme.titleMedium,
@@ -300,10 +327,10 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 DropdownMenuItem<String>(
                   value: 'logout',
                   child: Row(
-                    children: <Widget>[
-                      SizedBox(width: 2),
-                      Icon(Icons.logout, size: 32),
-                      SizedBox(width: 15),
+                    children: [
+                      const SizedBox(width: 2),
+                      const Icon(Icons.logout, size: 32),
+                      const SizedBox(width: 15),
                       Text(
                         localization.logout,
                         style: Theme.of(context).textTheme.titleMedium,
@@ -312,24 +339,29 @@ class _MenuDrawerState extends State<MenuDrawer> {
                   ),
                 ),
               ],
-              onChanged: (dynamic value) {
+              onChanged: (String? value) {
+                if (value == null) {
+                  return;
+                }
+
                 if (value == 'logout' && !state.isLoading && !state.isSaving) {
                   widget.viewModel.onLogoutTap(context);
                 } else if (state.isLoading) {
                   showMessageDialog(message: localization.waitForLoading);
-                  return;
                 } else if (state.isSaving) {
                   showMessageDialog(message: localization.waitForSaving);
-                  return;
                 } else if (!state.isLoaded) {
                   showMessageDialog(message: localization.waitForData);
-                  return;
                 } else if (value == 'company') {
                   widget.viewModel.onAddCompany(context);
                 } else {
-                  final index = int.parse(value);
-                  widget.viewModel
-                      .onCompanyChanged(context, index, state.companies[index]);
+                  final index = int.tryParse(value);
+                  if (index != null &&
+                      index >= 0 &&
+                      index < state.companies.length) {
+                    widget.viewModel.onCompanyChanged(
+                        context, index, state.companies[index]);
+                  }
                 }
               },
             ),
@@ -725,18 +757,18 @@ class _MenuDrawerState extends State<MenuDrawer> {
                           ),
                         ),
                       ),
-                SizedBox(
-                  height: kTopBottomBarHeight,
-                  child: AppBorder(
-                    isTop: true,
-                    child: Align(
-                      child: state.isMenuCollapsed
-                          ? SidebarFooterCollapsed()
-                          : SidebarFooter(),
-                      alignment: Alignment(0, 1),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: kTopBottomBarHeight,
+                //   child: AppBorder(
+                //     isTop: true,
+                //     child: Align(
+                //       child: state.isMenuCollapsed
+                //           ? SidebarFooterCollapsed()
+                //           : SidebarFooter(),
+                //       alignment: Alignment(0, 1),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

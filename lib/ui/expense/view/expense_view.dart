@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/models.dart';
@@ -127,7 +128,7 @@ class _ExpenseViewState extends State<ExpenseView>
                   ? TabBarView(
                       controller: _controller,
                       children: <Widget>[
-                        RefreshIndicator(
+                        AppRefreshIndicator(
                           onRefresh: () => viewModel.onRefreshed!(context),
                           child: ExpenseOverview(
                             key: ValueKey(
@@ -137,7 +138,7 @@ class _ExpenseViewState extends State<ExpenseView>
                           ),
                         ),
                         if (company.isModuleEnabled(EntityType.document))
-                          RefreshIndicator(
+                          AppRefreshIndicator(
                             onRefresh: () => viewModel.onRefreshed!(context),
                             child: ExpenseViewDocuments(
                                 key: ValueKey(

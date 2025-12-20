@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.invoiceninja.app">
+    package="com.baramey.app.kh">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
@@ -20,7 +20,7 @@
     <uses-feature android:name="android.hardware.CALL_PHONE" android:required="false"/>
 
     <application
-        android:label="Invoice Ninja"
+        android:label="Baramey"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

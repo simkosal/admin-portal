@@ -78,7 +78,7 @@ class _LoginState extends State<LoginView> {
   bool _tokenLogin = false;
   bool _isSelfHosted = false;
   bool _createAccount = false;
-  bool _showSettings = false;
+  // bool _showSettings = false;
 
   bool _recoverPassword = false;
   bool _disable2FA = false;
@@ -102,11 +102,11 @@ class _LoginState extends State<LoginView> {
     _loginTypes = [
       LOGIN_TYPE_EMAIL,
       if (!kReleaseMode || supportsGoogleOAuth()) LOGIN_TYPE_GOOGLE,
-      if (!kReleaseMode || supportsMicrosoftOAuth()) LOGIN_TYPE_MICROSOFT,
-      if (!kReleaseMode || supportsAppleOAuth()) LOGIN_TYPE_APPLE,
+      // if (!kReleaseMode || supportsMicrosoftOAuth()) LOGIN_TYPE_MICROSOFT,
+      // if (!kReleaseMode || supportsAppleOAuth()) LOGIN_TYPE_APPLE,
     ];
 
-    if (!kReleaseMode && Config.TEST_EMAIL.isNotEmpty) {
+    if (!kReleaseMode) {
       _urlController.text = Config.TEST_URL;
       _secretController.text = Config.TEST_SECRET;
       _emailController.text = Config.TEST_EMAIL;
@@ -330,7 +330,7 @@ class _LoginState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalization.of(context);
-    final platform = getNativePlatform();
+    // final platform = getNativePlatform();
     final viewModel = widget.viewModel;
     final state = viewModel.state;
 
@@ -341,7 +341,6 @@ class _LoginState extends State<LoginView> {
 
     final double horizontalPadding =
         calculateLayout(context) == AppLayout.desktop ? 40 : 16;
-
     return SafeArea(
       child: ScrollableListView(
         primary: true,
@@ -364,7 +363,7 @@ class _LoginState extends State<LoginView> {
                       state.prefState.enableDarkMode
                           ? 'assets/images/logo_dark.png'
                           : 'assets/images/logo_light.png',
-                      height: 50),
+                      height: 120),
                   onTap: () => launchUrl(Uri.parse(kSiteUrl)),
                   onLongPress: () {
                     if (kReleaseMode) {
@@ -691,173 +690,173 @@ class _LoginState extends State<LoginView> {
             ),
           ),
           SizedBox(height: 8),
-          FormCard(
-            forceNarrow: true,
-            internalPadding: const EdgeInsets.all(0),
-            children: [
-              Flex(
-                direction: calculateLayout(context) == AppLayout.desktop
-                    ? Axis.horizontal
-                    : Axis.vertical,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  if (_recoverPassword) ...[
-                    if (!_disable2FA && !_isSelfHosted)
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _disable2FA = true;
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.lock, size: 16),
-                                SizedBox(width: 8),
-                                Text(localization!.disable2fa),
-                              ]),
-                        ),
-                      ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          if (_disable2FA) {
-                            _disable2FA = false;
-                          } else {
-                            _recoverPassword = false;
-                          }
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.cancel, size: 16),
-                              SizedBox(width: 8),
-                              Text(localization!.cancel),
-                            ]),
-                      ),
-                    ),
-                  ] else ...[
-                    if (!_createAccount)
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _recoverPassword = true;
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                if (!_recoverPassword)
-                                  Icon(MdiIcons.lock, size: 16),
-                                SizedBox(width: 8),
-                                Text(_recoverPassword
-                                    ? localization!.cancel
-                                    : localization!.recoverPassword),
-                              ]),
-                        ),
-                      ),
-                    if (!_recoverPassword && !_isSelfHosted)
-                      InkWell(
-                        onTap: () {
-                          launchUrl(Uri.parse(kStatusCheckUrl));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.security, size: 16),
-                              SizedBox(width: 8),
-                              Text(localization!.checkStatus)
-                            ],
-                          ),
-                        ),
-                      ),
-                    if (!_recoverPassword)
-                      if (kIsWeb)
-                        InkWell(
-                          onTap: () =>
-                              launchUrl(Uri.parse(getNativeAppUrl(platform))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(getNativeAppIcon(platform), size: 16),
-                                SizedBox(width: 8),
-                                Text('$platform ${localization!.app}')
-                              ],
-                            ),
-                          ),
-                        )
-                      else
-                        InkWell(
-                          onTap: () => setState(() {
-                            _showSettings = !_showSettings;
-                          }),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.settings, size: 16),
-                                SizedBox(width: 8),
-                                Text(localization!.settings)
-                              ],
-                            ),
-                          ),
-                        )
-                  ]
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          if (_showSettings) ...[
-            FormCard(
-              forceNarrow: true,
-              internalPadding: const EdgeInsets.all(0),
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: horizontalPadding, vertical: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DecoratedFormField(
-                        autofocus: true,
-                        hint: 'domain.com',
-                        label: localization!.sslHostOverride,
-                        controller: _hostOverrideController,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) async {
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setString(kSharedPrefHostOverride, value);
-                        },
-                      ),
-                      SizedBox(height: 8),
-                      Text(localization.restartAppToApplyChange),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-          ]
+          // FormCard(
+          //   forceNarrow: true,
+          //   internalPadding: const EdgeInsets.all(0),
+          //   children: [
+          //     Flex(
+          //       direction: calculateLayout(context) == AppLayout.desktop
+          //           ? Axis.horizontal
+          //           : Axis.vertical,
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: <Widget>[
+          //         if (_recoverPassword) ...[
+          //           if (!_disable2FA && !_isSelfHosted)
+          //             InkWell(
+          //               onTap: () {
+          //                 setState(() {
+          //                   _disable2FA = true;
+          //                 });
+          //               },
+          //               child: Padding(
+          //                 padding: const EdgeInsets.all(14),
+          //                 child: Row(
+          //                     mainAxisSize: MainAxisSize.max,
+          //                     mainAxisAlignment: MainAxisAlignment.center,
+          //                     children: <Widget>[
+          //                       Icon(Icons.lock, size: 16),
+          //                       SizedBox(width: 8),
+          //                       Text(localization!.disable2fa),
+          //                     ]),
+          //               ),
+          //             ),
+          //           InkWell(
+          //             onTap: () {
+          //               setState(() {
+          //                 if (_disable2FA) {
+          //                   _disable2FA = false;
+          //                 } else {
+          //                   _recoverPassword = false;
+          //                 }
+          //               });
+          //             },
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(14),
+          //               child: Row(
+          //                   mainAxisSize: MainAxisSize.max,
+          //                   mainAxisAlignment: MainAxisAlignment.center,
+          //                   children: <Widget>[
+          //                     Icon(Icons.cancel, size: 16),
+          //                     SizedBox(width: 8),
+          //                     Text(localization!.cancel),
+          //                   ]),
+          //             ),
+          //           ),
+          //         ] else ...[
+          //           if (!_createAccount)
+          //             InkWell(
+          //               onTap: () {
+          //                 setState(() {
+          //                   _recoverPassword = true;
+          //                 });
+          //               },
+          //               child: Padding(
+          //                 padding: const EdgeInsets.all(14),
+          //                 child: Row(
+          //                     mainAxisSize: MainAxisSize.max,
+          //                     mainAxisAlignment: MainAxisAlignment.center,
+          //                     children: <Widget>[
+          //                       if (!_recoverPassword)
+          //                         Icon(MdiIcons.lock, size: 16),
+          //                       SizedBox(width: 8),
+          //                       Text(_recoverPassword
+          //                           ? localization!.cancel
+          //                           : localization!.recoverPassword),
+          //                     ]),
+          //               ),
+          //             ),
+          //           if (!_recoverPassword && !_isSelfHosted)
+          //             InkWell(
+          //               onTap: () {
+          //                 launchUrl(Uri.parse(kStatusCheckUrl));
+          //               },
+          //               child: Padding(
+          //                 padding: const EdgeInsets.all(14),
+          //                 child: Row(
+          //                   mainAxisSize: MainAxisSize.max,
+          //                   mainAxisAlignment: MainAxisAlignment.center,
+          //                   children: [
+          //                     Icon(Icons.security, size: 16),
+          //                     SizedBox(width: 8),
+          //                     Text(localization!.checkStatus)
+          //                   ],
+          //                 ),
+          //               ),
+          //             ),
+          //           if (!_recoverPassword)
+          //             if (kIsWeb)
+          //               InkWell(
+          //                 onTap: () =>
+          //                     launchUrl(Uri.parse(getNativeAppUrl(platform))),
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(14),
+          //                   child: Row(
+          //                     mainAxisSize: MainAxisSize.max,
+          //                     mainAxisAlignment: MainAxisAlignment.center,
+          //                     children: [
+          //                       Icon(getNativeAppIcon(platform), size: 16),
+          //                       SizedBox(width: 8),
+          //                       Text('$platform ${localization!.app}')
+          //                     ],
+          //                   ),
+          //                 ),
+          //               )
+          //             else
+          //               InkWell(
+          //                 onTap: () => setState(() {
+          //                   _showSettings = !_showSettings;
+          //                 }),
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(14),
+          //                   child: Row(
+          //                     mainAxisSize: MainAxisSize.max,
+          //                     mainAxisAlignment: MainAxisAlignment.center,
+          //                     children: [
+          //                       Icon(Icons.settings, size: 16),
+          //                       SizedBox(width: 8),
+          //                       Text(localization!.settings)
+          //                     ],
+          //                   ),
+          //                 ),
+          //               )
+          //         ]
+          //       ],
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 8),
+          // if (_showSettings) ...[
+          //   FormCard(
+          //     forceNarrow: true,
+          //     internalPadding: const EdgeInsets.all(0),
+          //     children: [
+          //       Padding(
+          //         padding: EdgeInsets.symmetric(
+          //             horizontal: horizontalPadding, vertical: 16),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             DecoratedFormField(
+          //               autofocus: true,
+          //               hint: 'domain.com',
+          //               label: localization!.sslHostOverride,
+          //               controller: _hostOverrideController,
+          //               keyboardType: TextInputType.text,
+          //               onChanged: (value) async {
+          //                 final prefs = await SharedPreferences.getInstance();
+          //                 prefs.setString(kSharedPrefHostOverride, value);
+          //               },
+          //             ),
+          //             SizedBox(height: 8),
+          //             Text(localization.restartAppToApplyChange),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          //   SizedBox(height: 20),
+          // ]
         ],
       ),
     );

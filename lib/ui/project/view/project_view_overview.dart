@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
 import 'package:invoiceninja_flutter/data/models/entities.dart';
@@ -180,7 +181,7 @@ class _ProjectOverviewState extends State<ProjectOverview> {
       return widgets;
     }
 
-    return RefreshIndicator(
+    return AppRefreshIndicator(
       onRefresh: () => widget.viewModel.onRefreshed(context),
       child: ScrollableListView(
         children: _buildView(),

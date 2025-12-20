@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 // Project imports:
@@ -78,12 +79,12 @@ class _CompanyGatewayViewState extends State<CompanyGatewayView>
       body: TabBarView(
         controller: _controller,
         children: [
-          RefreshIndicator(
+          AppRefreshIndicator(
             onRefresh: () => viewModel.onRefreshed(context),
             child: _CompanyGatewayOverview(
                 viewModel: widget.viewModel, isFilter: widget.isFilter),
           ),
-          RefreshIndicator(
+          AppRefreshIndicator(
               onRefresh: () => viewModel.onRefreshed(context),
               child: _CompanyGatewaySystemLog(viewModel: widget.viewModel)),
         ],

@@ -1,5 +1,5 @@
 // Flutter imports:
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:invoiceninja_flutter/constants.dart';
+import 'package:invoiceninja_flutter/data/base_refresh_indictor.dart';
 
 // Project imports:
-import 'package:invoiceninja_flutter/data/models/account_model.dart';
+// import 'package:invoiceninja_flutter/data/models/account_model.dart';
 import 'package:invoiceninja_flutter/data/models/entities.dart';
-import 'package:invoiceninja_flutter/data/models/serializers.dart';
-import 'package:invoiceninja_flutter/data/web_client.dart';
+// import 'package:invoiceninja_flutter/data/models/serializers.dart';
+// import 'package:invoiceninja_flutter/data/web_client.dart';
 import 'package:invoiceninja_flutter/redux/app/app_actions.dart';
 import 'package:invoiceninja_flutter/redux/app/app_state.dart';
 import 'package:invoiceninja_flutter/redux/ui/pref_state.dart';
@@ -26,15 +27,16 @@ import 'package:invoiceninja_flutter/ui/dashboard/dashboard_panels.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_screen_vm.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_sidebar.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_system_logs.dart';
+import 'package:invoiceninja_flutter/ui/fos/field_operation_assistance.dart';
 import 'package:invoiceninja_flutter/ui/settings/settings_wizard.dart';
-import 'package:invoiceninja_flutter/utils/dialogs.dart';
+// import 'package:invoiceninja_flutter/utils/dialogs.dart';
 import 'package:invoiceninja_flutter/utils/icons.dart';
 import 'package:invoiceninja_flutter/utils/localization.dart';
 import 'package:invoiceninja_flutter/utils/platforms.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'package:invoiceninja_flutter/utils/web_stub.dart'
-    if (dart.library.html) 'package:invoiceninja_flutter/utils/web.dart';
+// import 'package:invoiceninja_flutter/utils/web_stub.dart'
+//     if (dart.library.html) 'package:invoiceninja_flutter/utils/web.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -194,11 +196,22 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     final mainScaffold = Scaffold(
       drawer: isMobile(context) || state.prefState.isMenuFloated
-          ? MenuDrawerBuilder()
+          ? MenuDrawerBuilder(
+              key: PageStorageKey(DateTime.now().toString()),
+            )
           : null,
       endDrawer: isMobile(context) || state.prefState.isHistoryFloated
           ? HistoryDrawerBuilder()
           : null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FieldCompanionApp()),
+          );
+        },
+        child: Icon(Icons.rocket),
+      ),
       appBar: AppBar(
         centerTitle: false,
         automaticallyImplyLeading: false,
@@ -261,66 +274,66 @@ class _DashboardScreenState extends State<DashboardScreen>
               (kIsWeb &&
                   (state.isHosted ||
                       (state.isSelfHosted && state.userCompany.isAdmin))))
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                tooltip: localization!.enableReactApp,
-                onPressed: () async {
-                  if (state.isDemo) {
-                    launchUrl(Uri.parse(kReactDemoUrl));
-                  } else if (state.isHosted) {
-                    launchUrl(Uri.parse(kAppReactUrl));
-                  } else {
-                    confirmCallback(
-                        context: context,
-                        message: localization.enableReactApp,
-                        callback: (_) {
-                          final credentials = state.credentials;
-                          final account = state.account
-                              .rebuild((b) => b..setReactAsDefaultAP = true);
-                          final url =
-                              '${credentials.url}/accounts/${account.id}';
-                          final data = serializers.serializeWith(
-                              AccountEntity.serializer, account);
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10),
+            //   child: IconButton(
+            //     tooltip: localization!.enableReactApp,
+            //     onPressed: () async {
+            //       if (state.isDemo) {
+            //         launchUrl(Uri.parse(kReactDemoUrl));
+            //       } else if (state.isHosted) {
+            //         launchUrl(Uri.parse(kAppReactUrl));
+            //       } else {
+            //         confirmCallback(
+            //             context: context,
+            //             message: localization.enableReactApp,
+            //             callback: (_) {
+            //               final credentials = state.credentials;
+            //               final account = state.account
+            //                   .rebuild((b) => b..setReactAsDefaultAP = true);
+            //               final url =
+            //                   '${credentials.url}/accounts/${account.id}';
+            //               final data = serializers.serializeWith(
+            //                   AccountEntity.serializer, account);
 
-                          store.dispatch(StartSaving());
-                          WebClient()
-                              .put(
-                            url,
-                            credentials.token,
-                            data: json.encode(data),
-                          )
-                              .then((dynamic _) {
-                            store.dispatch(StopSaving());
-                            WebUtils.reloadBrowser();
-                          }).catchError((Object error) {
-                            store.dispatch(StopSaving());
-                            showErrorDialog(message: error as String?);
-                          });
-                        });
-                  }
-                },
-                icon: Icon(MdiIcons.react),
+            //               store.dispatch(StartSaving());
+            //               WebClient()
+            //                   .put(
+            //                 url,
+            //                 credentials.token,
+            //                 data: json.encode(data),
+            //               )
+            //                   .then((dynamic _) {
+            //                 store.dispatch(StopSaving());
+            //                 WebUtils.reloadBrowser();
+            //               }).catchError((Object error) {
+            //                 store.dispatch(StopSaving());
+            //                 showErrorDialog(message: error as String?);
+            //               });
+            //             });
+            //       }
+            //     },
+            //     icon: Icon(MdiIcons.react),
+            //   ),
+            // ),
+            if (isMobile(context) || !state.prefState.isHistoryVisible)
+              Builder(
+                builder: (context) => IconButton(
+                  padding: const EdgeInsets.only(left: 4, right: 24),
+                  tooltip: state.prefState.enableTooltips
+                      ? localization!.history
+                      : null,
+                  icon: Icon(Icons.history),
+                  onPressed: () {
+                    if (isMobile(context) || state.prefState.isHistoryFloated) {
+                      Scaffold.of(context).openEndDrawer();
+                    } else {
+                      store.dispatch(
+                          UpdateUserPreferences(sidebar: AppSidebar.history));
+                    }
+                  },
+                ),
               ),
-            ),
-          if (isMobile(context) || !state.prefState.isHistoryVisible)
-            Builder(
-              builder: (context) => IconButton(
-                padding: const EdgeInsets.only(left: 4, right: 24),
-                tooltip: state.prefState.enableTooltips
-                    ? localization!.history
-                    : null,
-                icon: Icon(Icons.history),
-                onPressed: () {
-                  if (isMobile(context) || state.prefState.isHistoryFloated) {
-                    Scaffold.of(context).openEndDrawer();
-                  } else {
-                    store.dispatch(
-                        UpdateUserPreferences(sidebar: AppSidebar.history));
-                  }
-                },
-              ),
-            ),
         ],
         bottom: isMobile(context)
             ? TabBar(
@@ -436,7 +449,7 @@ class _CustomTabBarView extends StatelessWidget {
     return TabBarView(
       controller: mainTabController,
       children: <Widget>[
-        RefreshIndicator(
+        AppRefreshIndicator(
           onRefresh: () => viewModel.onRefreshed(context),
           child: DashboardPanels(
             viewModel: viewModel,
@@ -444,11 +457,11 @@ class _CustomTabBarView extends StatelessWidget {
             tabController: sideTabController,
           ),
         ),
-        RefreshIndicator(
+        AppRefreshIndicator(
           onRefresh: () => viewModel.onRefreshed(context),
           child: DashboardActivity(viewModel: viewModel),
         ),
-        RefreshIndicator(
+        AppRefreshIndicator(
           onRefresh: () => viewModel.onRefreshed(context),
           child: DashboardSystemLogs(viewModel: viewModel),
         ),

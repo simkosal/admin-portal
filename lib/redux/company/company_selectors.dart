@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/material.dart';
 import 'package:memoize/memoize.dart';
 
 // Project imports:
@@ -129,7 +130,9 @@ List<BaseEntity> filteredSelector(String? filter, UserCompanyState state) {
 String localeSelector(AppState state, {bool twoLetter = false}) {
   var languageId = state.company.languageId;
   if (state.user.languageId.isNotEmpty) {
-    languageId = state.user.languageId;
+    // languageId = state.user.languageId;
+    /// 1=en
+    languageId = '1';
   }
 
   final languageMap = state.staticState.languageMap;
@@ -170,4 +173,20 @@ String clientPortalUrlSelector(AppState state, {String route = 'login'}) {
   }
 
   return url;
+}
+
+Color getAccentColor(AppState state) {
+  // Option 1: Force override for all companies
+  return const Color(0xFF7C0012);
+
+  // Option 2: Respect company setting, fallback if null
+  // final colorHex = state.company.accentColor ?? '#7C0012';
+  // return parseHexColor(colorHex);
+}
+
+// Optional utility method if using hex strings
+Color parseHexColor(String hexColor) {
+  final cleaned = hexColor.replaceAll('#', '');
+  final value = int.tryParse('FF$cleaned') ?? 0xFF7C0012;
+  return Color(value);
 }

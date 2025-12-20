@@ -1,6 +1,7 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
@@ -115,6 +116,21 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main({bool isTesting = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   // Log the whole error:
+  //   debugPrint('🔴 Flutter framework error caught!');
+  //   debugPrint('Exception: ${details.exception}');
+  //   debugPrint('Stack trace:\n${details.stack}');
+
+  //   // Also print the context — this often hints at the widget:
+  //   debugPrint('Context: ${details.context}');
+
+  //   // Still pass to the default handler so you see red screen in debug
+  //   FlutterError.presentError(details);
+
+  //   // Or: report to Firebase Crashlytics, Sentry, etc.
+  // };
 
   final prefs = await SharedPreferences.getInstance();
   HttpOverrides.global =
@@ -252,6 +268,7 @@ Future<AppState> _initialState(bool isTesting, SharedPreferences prefs) async {
 
   PrefState? prefState = PrefState();
   if (prefString != null) {
+    log(prefString.toString());
     try {
       prefState = serializers.deserializeWith(
           PrefState.serializer, json.decode(prefString));

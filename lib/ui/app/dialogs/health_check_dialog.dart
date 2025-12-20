@@ -374,7 +374,7 @@ class _HealthListTile extends StatelessWidget {
         color: level == _HealthCheckLevel.Warning
             ? Colors.orange
             : level == _HealthCheckLevel.Info
-                ? Colors.blue
+                ? Color(0xFF7C0012)
                 : (isValid ? Colors.green : Colors.red),
       ),
       onTap: url != null ? () => launchUrl(Uri.parse(url!)) : null,
