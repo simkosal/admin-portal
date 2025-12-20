@@ -138,8 +138,8 @@ class LoginVM {
           // fallback to dispatching the actions if navigator isn't available
           if (layout == AppLayout.mobile) {
             if (isSignUp) {
-              store.dispatch(UpdateUserPreferences(
-                  moduleLayout: ModuleLayout.list));
+              store.dispatch(
+                  UpdateUserPreferences(moduleLayout: ModuleLayout.list));
             }
             store.dispatch(ViewDashboard(force: true));
           } else {
