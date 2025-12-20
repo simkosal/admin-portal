@@ -6,7 +6,7 @@ class Constants {
 
   static const String baseUrl = 'https://baramey-api.mearkea.com/';
 
-  static const String site = 'https://baramey.mearkea.com/';
+  static const String site = 'https://mearkea.com/';
 }
 
 // TODO remove version once #46609 is fixed

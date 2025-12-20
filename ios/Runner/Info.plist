@@ -72,5 +72,10 @@
 	<true/>
 	<key>FLTEnableImpeller</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not use the microphone, but this key is required by Apple to satisfy library requirements.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app does not use speech recognition, but this key is required by Apple to satisfy library requirements.</string>
+
 </dict>
 </plist>

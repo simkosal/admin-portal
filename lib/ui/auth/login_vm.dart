@@ -21,6 +21,8 @@ import 'package:invoiceninja_flutter/redux/auth/auth_state.dart';
 import 'package:invoiceninja_flutter/redux/dashboard/dashboard_actions.dart';
 import 'package:invoiceninja_flutter/redux/ui/pref_state.dart';
 import 'package:invoiceninja_flutter/ui/app/app_builder.dart';
+import 'package:invoiceninja_flutter/ui/app/main_screen.dart';
+import 'package:invoiceninja_flutter/ui/dashboard/dashboard_screen_vm.dart';
 import 'package:invoiceninja_flutter/ui/auth/login_view.dart';
 import 'package:invoiceninja_flutter/utils/formatting.dart';
 import 'package:invoiceninja_flutter/utils/localization.dart';
@@ -131,14 +133,37 @@ class LoginVM {
       AppBuilder.of(context)!.rebuild();
 
       WidgetsBinding.instance.addPostFrameCallback((duration) {
+        final navigator = navigatorKey.currentState;
+        if (navigator == null) {
+          // fallback to dispatching the actions if navigator isn't available
+          if (layout == AppLayout.mobile) {
+            if (isSignUp) {
+              store.dispatch(UpdateUserPreferences(
+                  moduleLayout: ModuleLayout.list));
+            }
+            store.dispatch(ViewDashboard(force: true));
+          } else {
+            store.dispatch(ViewMainScreen());
+            store.dispatch(ViewDashboard(force: true));
+          }
+          return;
+        }
+
         if (layout == AppLayout.mobile) {
           if (isSignUp) {
             store.dispatch(
                 UpdateUserPreferences(moduleLayout: ModuleLayout.list));
           }
-          store.dispatch(ViewDashboard());
+          navigator.pushNamedAndRemoveUntil(
+              DashboardScreenBuilder.route, (Route<dynamic> route) => false);
         } else {
-          store.dispatch(ViewMainScreen());
+          // Replace stack with MainScreen then navigate into Dashboard
+          navigator.pushNamedAndRemoveUntil(
+              MainScreen.route, (Route<dynamic> route) => false);
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            navigator.pushNamed(DashboardScreenBuilder.route);
+          });
         }
       });
     }

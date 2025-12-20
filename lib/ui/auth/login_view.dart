@@ -90,11 +90,13 @@ class _LoginState extends State<LoginView> {
     super.initState();
 
     if (kIsWeb) {
-      final authState = widget.viewModel.authState;
-      _isSelfHosted = authState.isSelfHost;
-      if (_isSelfHosted) {
-        _loginType = LOGIN_TYPE_EMAIL;
-      } else if (WebUtils.getHtmlValue('signup') == 'true') {
+      // Self-hosted option removed: always use hosted mode.
+      // Previously we respected `authState.isSelfHost` here, but the UI
+      // no longer exposes the Self-Hosted tab so force hosted mode.
+      // final authState = widget.viewModel.authState;
+      // _isSelfHosted = authState.isSelfHost;
+      _isSelfHosted = false;
+      if (WebUtils.getHtmlValue('signup') == 'true') {
         _createAccount = true;
       }
     }
@@ -409,30 +411,12 @@ class _LoginState extends State<LoginView> {
                     Column(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        if (!_recoverPassword &&
-                            (!kIsWeb || !kReleaseMode)) ...[
-                          RuledText(localization!.selectPlatform),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: AppToggleButtons(
-                              tabLabels: [
-                                localization.hosted,
-                                localization.selfhosted,
-                              ],
-                              selectedIndex: _isSelfHosted ? 1 : 0,
-                              onTabChanged: (index) {
-                                setState(() {
-                                  _isSelfHosted = index == 1;
-                                  _createAccount = false;
-                                  _loginError = '';
-                                  if (index == 1) {
-                                    _loginType = LOGIN_TYPE_EMAIL;
-                                  }
-                                });
-                              },
-                            ),
-                          ),
-                        ],
+                        // Self-hosted option removed: always show Hosted only.
+                        // The original UI allowed switching between Hosted and
+                        // Self-Hosted via toggle buttons. That toggle has been
+                        // removed to simplify the login flow; the code that
+                        // handled self-hosted fields remains but `_isSelfHosted`
+                        // is forced to `false` so those fields won't appear.
                         if (!_isSelfHosted && _loginTypes!.length > 1) ...[
                           RuledText(localization!.selectMethod),
                           Padding(
