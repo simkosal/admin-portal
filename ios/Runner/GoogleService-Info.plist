@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>333142083765-g8fpglpe1kk5631mdhgpfriqajldnta5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.333142083765-g8fpglpe1kk5631mdhgpfriqajldnta5</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>333142083765-5gi3s0vuu10lcks51thtg1t6u0vutftr.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCDknN9HYzqh1LjSvUriEOxeGsAk1Ab4v4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>333142083765</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.baramey.app.kh</string>
+	<key>PROJECT_ID</key>
+	<string>baramey-2f3d8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>baramey-2f3d8.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:333142083765:ios:c62faa61c6492aea2296fc</string>
+</dict>
+</plist>
