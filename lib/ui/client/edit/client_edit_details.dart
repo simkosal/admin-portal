@@ -2,9 +2,10 @@
 import 'dart:io';
 
 // Flutter imports:
-import 'package:contacts_service_plus/contacts_service_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 
 // Project imports:
 import 'package:invoiceninja_flutter/constants.dart';
@@ -130,7 +131,7 @@ class ClientEditDetailsState extends State<ClientEditDetails> {
     widget.viewModel.onSavePressed(context);
   }
 
-  void _setContactControllers(Contact contact) {
+  void _setContactControllers(dynamic contact) {
     final viewModel = widget.viewModel;
     final client = viewModel.client;
 

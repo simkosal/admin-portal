@@ -1772,7 +1772,7 @@ class _ContactUsDialogState extends State<ContactUsDialog> {
                         setState(() => _includeLogs = value);
                       },
                       title: Text(localization.includeRecentErrors),
-                      activeThumbColor: Theme.of(context).colorScheme.secondary,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ]
                 ]),

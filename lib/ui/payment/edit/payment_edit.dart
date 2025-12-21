@@ -339,7 +339,7 @@ class _PaymentEditState extends State<PaymentEdit> {
             children: [
               if (payment.isNew)
                 SwitchListTile(
-                  activeThumbColor: Theme.of(context).colorScheme.secondary,
+                  activeColor: Theme.of(context).colorScheme.secondary,
                   title: Text(localization.sendEmail),
                   value: payment.sendEmail ?? false,
                   subtitle: Text(localization.emailReceipt),
@@ -347,7 +347,7 @@ class _PaymentEditState extends State<PaymentEdit> {
                       .onChanged(payment.rebuild((b) => b..sendEmail = value)),
                 ),
               SwitchListTile(
-                activeThumbColor: Theme.of(context).colorScheme.secondary,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 title: Text(localization.convertCurrency),
                 value: _showConvertCurrency,
                 onChanged: (value) {

@@ -15,8 +15,7 @@ bool _googleInitialized = false;
 
 Future<void> _ensureGoogleInitialized() async {
   if (!_googleInitialized) {
-    await GoogleSignIn.instance
-        .initialize(serverClientId: _serverClientId);
+    await GoogleSignIn.instance.initialize(serverClientId: _serverClientId);
     _googleInitialized = true;
   }
 }
@@ -46,9 +45,9 @@ class GoogleOAuth {
       final idToken = account.authentication.idToken ?? '';
       String accessToken = '';
       try {
-        final GoogleSignInClientAuthorization? auth =
-            await account.authorizationClient.authorizationForScopes(
-                _defaultScopes);
+        final GoogleSignInClientAuthorization? auth = await account
+            .authorizationClient
+            .authorizationForScopes(_defaultScopes);
         accessToken = auth?.accessToken ?? '';
       } catch (_) {
         // ignore and continue with empty access token
@@ -71,9 +70,9 @@ class GoogleOAuth {
       final idToken = account.authentication.idToken ?? '';
       String accessToken = '';
       try {
-        final GoogleSignInClientAuthorization? auth =
-            await account.authorizationClient
-                .authorizationForScopes(_defaultScopes);
+        final GoogleSignInClientAuthorization? auth = await account
+            .authorizationClient
+            .authorizationForScopes(_defaultScopes);
         accessToken = auth?.accessToken ?? '';
       } catch (_) {}
 
@@ -88,9 +87,9 @@ class GoogleOAuth {
   static Future<bool> requestGmailScope() async {
     await _ensureGoogleInitialized();
     try {
-      final GoogleSignInClientAuthorization? auth =
-          await GoogleSignIn.instance.authorizationClient
-              .authorizeScopes(['https://www.googleapis.com/auth/gmail.send']);
+      final GoogleSignInClientAuthorization? auth = await GoogleSignIn
+          .instance.authorizationClient
+          .authorizeScopes(['https://www.googleapis.com/auth/gmail.send']);
       return auth != null;
     } catch (_) {
       return false;

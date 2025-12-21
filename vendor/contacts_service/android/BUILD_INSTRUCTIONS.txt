@@ -1,0 +1,9 @@
+After copying the plugin into this folder, update the Android module:
+
+1. Open `vendor/contacts_service/android/build.gradle` and inside the `android {}` block add:
+
+   namespace 'com.lukasgit.contacts_service'
+
+2. If the plugin has Kotlin/Gradle configuration that uses the legacy `apply` lines, migrate to the `plugins {}` block per Flutter docs.
+
+3. Run `flutter pub get` from the project root, then `flutter run`.

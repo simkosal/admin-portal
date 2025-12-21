@@ -1,0 +1,9 @@
+After copying the plugin into this folder, update the Android module:
+
+1. Open `vendor/package_info/android/build.gradle` and inside the `android {}` block add:
+
+   namespace 'io.flutter.plugins.packageinfo'
+
+2. If the plugin uses legacy `apply` lines, migrate to `plugins {}` per Flutter docs.
+
+3. Run `flutter pub get` from the project root, then `flutter run`.

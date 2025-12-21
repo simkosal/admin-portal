@@ -221,7 +221,7 @@ void main({bool isTesting = false}) async {
         options.release = const String.fromEnvironment('SENTRY_RELEASE',
             defaultValue: kClientVersion);
         options.dist = kClientVersion;
-        options.beforeSend = (SentryEvent event, Hint hint) {
+        options.beforeSend = (SentryEvent event, Hint? hint) {
           final state = store.state;
           final account = state.account;
           final reportErrors = account.reportErrors;
@@ -230,11 +230,37 @@ void main({bool isTesting = false}) async {
             return null;
           }
 
-          event.environment = '${store.state.environment}'.split('.').last;
-
-          return event;
+          return event.copyWith(
+            environment: '${store.state.environment}'.split('.').last,
+            /*
+            extra: <String, dynamic>{
+              'server_version': account.currentVersion,
+              'route': state.uiState.currentRoute,
+            },
+            */
+          );
         };
       },
+      // await SentryFlutter.init(
+      //   (options) {
+      //     options.dsn = Config.SENTRY_DNS;
+      //     options.release = const String.fromEnvironment('SENTRY_RELEASE',
+      //         defaultValue: kClientVersion);
+      //     options.dist = kClientVersion;
+      //     options.beforeSend = (SentryEvent event, Hint hint) {
+      //       final state = store.state;
+      //       final account = state.account;
+      //       final reportErrors = account.reportErrors;
+
+      //       if (!reportErrors) {
+      //         return null;
+      //       }
+
+      //       event.environment = '${store.state.environment}'.split('.').last;
+
+      //       return event;
+      //     };
+      //   },
       appRunner: () => runApp(InvoiceNinjaApp(store: store)),
     );
   }

@@ -27,7 +27,6 @@ import 'package:invoiceninja_flutter/ui/dashboard/dashboard_panels.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_screen_vm.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_sidebar.dart';
 import 'package:invoiceninja_flutter/ui/dashboard/dashboard_system_logs.dart';
-import 'package:invoiceninja_flutter/ui/fos/field_operation_assistance.dart';
 import 'package:invoiceninja_flutter/ui/settings/settings_wizard.dart';
 // import 'package:invoiceninja_flutter/utils/dialogs.dart';
 import 'package:invoiceninja_flutter/utils/icons.dart';
@@ -203,15 +202,6 @@ class _DashboardScreenState extends State<DashboardScreen>
       endDrawer: isMobile(context) || state.prefState.isHistoryFloated
           ? HistoryDrawerBuilder()
           : null,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const FieldCompanionApp()),
-          );
-        },
-        child: Icon(Icons.rocket),
-      ),
       appBar: AppBar(
         centerTitle: false,
         automaticallyImplyLeading: false,

@@ -225,7 +225,7 @@ class _LocalizationSettingsState extends State<LocalizationSettings>
                       },
                       title: Text(localization.decimalComma),
                       subtitle: Text(localization.useCommaAsDecimalPlace),
-                      activeThumbColor: Theme.of(context).colorScheme.secondary,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                       secondary: isDesktop(context)
                           ? Icon(MdiIcons.commaCircle)
                           : null,

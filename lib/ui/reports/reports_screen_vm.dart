@@ -25,6 +25,7 @@ import 'package:invoiceninja_flutter/ui/reports/transaction_report.dart';
 import 'package:invoiceninja_flutter/ui/reports/vendor_report.dart';
 import 'package:invoiceninja_flutter/utils/files.dart';
 import 'package:invoiceninja_flutter/utils/platforms.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:memoize/memoize.dart';
 import 'package:redux/redux.dart';
 
@@ -56,7 +57,6 @@ import 'package:invoiceninja_flutter/utils/formatting.dart';
 import 'package:invoiceninja_flutter/utils/localization.dart';
 import 'package:invoiceninja_flutter/utils/money.dart';
 import 'package:invoiceninja_flutter/utils/strings.dart';
-import 'package:share_plus/share_plus.dart';
 import 'credit_report.dart';
 
 import 'package:invoiceninja_flutter/utils/web_stub.dart'
@@ -556,9 +556,7 @@ class ReportsScreenVM {
               showToast(localization!.fileSavedInPath
                   .replaceFirst(':path', directory));
             } else {
-              await SharePlus.instance.share(ShareParams(
-                files: [XFile(filePath)],
-              ));
+              await Share.shareXFiles([XFile(filePath)]);
             }
           }
         });
