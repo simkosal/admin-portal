@@ -18,6 +18,17 @@ mixin LocalizationsProvider on LocaleCodeAware {
   static final Map<String, Map<String, String>> _localizedValues = {
     'en': {
       // STARTER: lang key - do not remove comment
+      'empty': 'Empty',
+      'location_name': 'Location Name',
+      'location_field': 'Location Field',
+      'activity_151': 'Client :notes merged into :client by :user',
+      'activity_152': 'Vendor :notes merged into :vendor by :user',
+      'activity_153': 'Client :notes purged by :user',
+      'secret_key': 'Secret Key',
+      'access_key': 'Access Key',
+      'from_address': 'From Address',
+      'topic_arn': 'Topic ARN',
+      'replaced': 'Replaced',
       'tax_names': 'Tax Names',
       'location': 'Location',
       'is_shipping': 'Is Shipping',
@@ -122457,6 +122468,30 @@ mixin LocalizationsProvider on LocaleCodeAware {
   String get isShipping =>
       _localizedValues[localeCode]!['is_shipping'] ??
       _localizedValues['en']!['is_shipping']!;
+
+  String get replaced =>
+      _localizedValues[localeCode]!['replaced'] ??
+      _localizedValues['en']!['replaced']!;
+
+  String get secretKey =>
+      _localizedValues[localeCode]!['secret_key'] ??
+      _localizedValues['en']!['secret_key']!;
+
+  String get accessKey =>
+      _localizedValues[localeCode]!['access_key'] ??
+      _localizedValues['en']!['access_key']!;
+
+  String get fromAddress =>
+      _localizedValues[localeCode]!['from_address'] ??
+      _localizedValues['en']!['from_address']!;
+
+  String get topicArn =>
+      _localizedValues[localeCode]!['topic_arn'] ??
+      _localizedValues['en']!['topic_arn']!;
+
+  String get empty =>
+      _localizedValues[localeCode]!['empty'] ??
+      _localizedValues['en']!['empty']!;
 
   // STARTER: lang field - do not remove comment
 

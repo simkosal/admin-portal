@@ -101,6 +101,9 @@ class _LoginState extends State<LoginView> {
       }
     }
 
+    // final microsoftClientId =
+    //     WebUtils.getHtmlValue('microsoft-client-id') ?? '';
+
     _loginTypes = [
       LOGIN_TYPE_EMAIL,
       if (!kReleaseMode || supportsGoogleOAuth()) LOGIN_TYPE_GOOGLE,
@@ -869,7 +872,7 @@ class RuledText extends StatelessWidget {
           Expanded(
             child: Container(
               height: 1,
-              color: Colors.grey.withOpacity(.5),
+              color: Colors.grey.withOpacity(0.5),
             ),
           ),
           Padding(
@@ -885,7 +888,7 @@ class RuledText extends StatelessWidget {
           Expanded(
             child: Container(
               height: 1,
-              color: Colors.grey.withOpacity(.5),
+              color: Colors.grey.withOpacity(0.5),
             ),
           ),
         ],

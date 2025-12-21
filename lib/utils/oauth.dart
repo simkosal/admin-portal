@@ -2,92 +2,108 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'openid',
-    'profile',
-    //'https://www.googleapis.com/auth/gmail.send',
-  ],
-  serverClientId:
-      '333142083765-m2bntjbnrtt0m2699l019mcbpmdsb1ku.apps.googleusercontent.com',
-);
+const String _serverClientId =
+    '333142083765-m2bntjbnrtt0m2699l019mcbpmdsb1ku.apps.googleusercontent.com';
+
+final List<String> _defaultScopes = <String>[
+  'email',
+  'openid',
+  'profile',
+];
+
+bool _googleInitialized = false;
+
+Future<void> _ensureGoogleInitialized() async {
+  if (!_googleInitialized) {
+    await GoogleSignIn.instance
+        .initialize(serverClientId: _serverClientId);
+    _googleInitialized = true;
+  }
+}
 
 class GoogleOAuth {
   static bool get isEnabled => true;
 
   static Future<bool> signIn(Function(String, String) callback,
       {bool isSilent = false}) async {
+    await _ensureGoogleInitialized();
+
     GoogleSignInAccount? account;
 
     if (isSilent) {
-      account = await _googleSignIn.signInSilently();
+      final Future<GoogleSignInAccount?>? future =
+          GoogleSignIn.instance.attemptLightweightAuthentication();
+      if (future != null) {
+        account = await future;
+      }
     }
 
-    account ??= await _googleSignIn.signIn();
+    account ??= await GoogleSignIn.instance.authenticate(
+      scopeHint: _defaultScopes,
+    );
 
     if (account != null) {
-      account.authentication.then((GoogleSignInAuthentication value) {
-        callback(
-          value.idToken ?? '',
-          value.accessToken ?? '',
-        );
-      });
+      final idToken = account.authentication.idToken ?? '';
+      String accessToken = '';
+      try {
+        final GoogleSignInClientAuthorization? auth =
+            await account.authorizationClient.authorizationForScopes(
+                _defaultScopes);
+        accessToken = auth?.accessToken ?? '';
+      } catch (_) {
+        // ignore and continue with empty access token
+      }
 
+      callback(idToken, accessToken);
       return true;
     } else {
-      print('## ERROR: sign in failed');
+      debugPrint('## ERROR: sign in failed');
       return false;
     }
   }
 
   static Future<bool> signUp(Function(String, String) callback) async {
-    final account = await _googleSignIn.signIn();
+    await _ensureGoogleInitialized();
+    final GoogleSignInAccount account =
+        await GoogleSignIn.instance.authenticate(scopeHint: _defaultScopes);
     debugPrint('dataAccount:${account.toString()}');
     if (account != null) {
-      account.authentication.then((GoogleSignInAuthentication value) {
-        callback(
-          value.idToken ?? '',
-          value.accessToken ?? '',
-        );
-      });
+      final idToken = account.authentication.idToken ?? '';
+      String accessToken = '';
+      try {
+        final GoogleSignInClientAuthorization? auth =
+            await account.authorizationClient
+                .authorizationForScopes(_defaultScopes);
+        accessToken = auth?.accessToken ?? '';
+      } catch (_) {}
 
+      callback(idToken, accessToken);
       return true;
     } else {
-      print('## ERROR: sign up failed');
+      debugPrint('## ERROR: sign up failed');
       return false;
     }
   }
 
   static Future<bool> requestGmailScope() async {
-    return await _googleSignIn
-        .requestScopes(['https://www.googleapis.com/auth/gmail.send']);
-  }
-
-  /*
-  static Future<bool> grantOfflineAccess(
-      Function(String, String, String) successCallback,
-      Function errorCallback) async {
-    final account = await _googleSignIn.grantOfflineAccess();
-    if (account != null) {
-      account.authentication.then((GoogleSignInAuthentication value) {
-        successCallback(value.idToken, value.accessToken, value.serverAuthCode);
-      });
-
-      return true;
-    } else {
-      print('## ERROR: grant offline failed');
-      errorCallback();
+    await _ensureGoogleInitialized();
+    try {
+      final GoogleSignInClientAuthorization? auth =
+          await GoogleSignIn.instance.authorizationClient
+              .authorizeScopes(['https://www.googleapis.com/auth/gmail.send']);
+      return auth != null;
+    } catch (_) {
       return false;
     }
   }
-  */
 
-  static Future<GoogleSignInAccount?> signOut() async {
-    return await _googleSignIn.signOut();
+  static Future<void> signOut() async {
+    await _ensureGoogleInitialized();
+    await GoogleSignIn.instance.signOut();
   }
 
-  static Future<GoogleSignInAccount?> disconnect() async {
-    return await _googleSignIn.disconnect();
+  static Future<void> disconnect() async {
+    await _ensureGoogleInitialized();
+    await GoogleSignIn.instance.disconnect();
   }
 }

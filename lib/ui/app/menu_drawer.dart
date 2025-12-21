@@ -865,7 +865,7 @@ class _DrawerTileState extends State<DrawerTile> {
         .textTheme
         .bodyLarge!
         .color!
-        .withOpacity(isSelected ? 1 : .7);
+        .withValues(alpha: isSelected ? 1 : .7);
 
     if (isSelected) {
       if (activeColor.isNotEmpty) {
@@ -1700,7 +1700,7 @@ class _ContactUsDialogState extends State<ContactUsDialog> {
         .then((dynamic response) async {
       setState(() => _isSaving = false);
       await showDialog<MessageDialog>(
-          context: context,
+          context: navigatorKey.currentContext!,
           builder: (BuildContext context) {
             return MessageDialog(localization!.yourMessageHasBeenReceived);
           });
@@ -1772,7 +1772,7 @@ class _ContactUsDialogState extends State<ContactUsDialog> {
                         setState(() => _includeLogs = value);
                       },
                       title: Text(localization.includeRecentErrors),
-                      activeColor: Theme.of(context).colorScheme.secondary,
+                      activeThumbColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ]
                 ]),

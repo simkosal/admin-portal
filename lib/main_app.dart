@@ -323,6 +323,7 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
 
   @override
   Widget build(BuildContext context) {
+    const double disabledAlpha = 0.65;
     return StoreProvider<AppState>(
       store: widget.store!,
       child: WebSessionTimeout(
@@ -339,13 +340,13 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
           final locale = AppLocalization.createLocale(localeSelector(state));
           _initTimeago();
 
-          // final textButtonTheme = TextButton.styleFrom(
-          //   minimumSize: Size(88, 36),
-          //   padding: EdgeInsets.symmetric(horizontal: 16),
-          //   shape: const RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
-          //   ),
-          // );
+          final textButtonTheme = TextButton.styleFrom(
+            minimumSize: Size(88, 36),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
+            ),
+          );
 
           final outlinedButtonTheme = OutlinedButton.styleFrom(
             foregroundColor:
@@ -353,7 +354,7 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
           );
 
           return StyledToast(
-            locale: locale,
+            // locale: locale,
             duration: Duration(seconds: 4),
             backgroundColor:
                 state.prefState.enableDarkMode ? Colors.white : Colors.black,
@@ -515,13 +516,15 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
                             borderWidth: 0.5,
                             textStyle: TextStyle(fontSize: 16),
                           ),
-                          tabBarTheme: TabBarTheme(
+                          tabBarTheme: TabBarThemeData(
                             indicatorColor: Color(0xFF7C0012),
                             labelColor:
                                 hasAccentColor ? Colors.white : Colors.black54,
                             unselectedLabelColor: hasAccentColor
-                                ? Colors.white.withOpacity(.65)
-                                : Colors.black.withOpacity(.65),
+                                ? Colors.white
+                                    .withAlpha((disabledAlpha * 255).round())
+                                : Colors.black
+                                    .withAlpha((disabledAlpha * 255).round()),
                           ),
 
                           iconTheme: IconThemeData(
@@ -554,6 +557,87 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
                           bottomAppBarTheme:
                               BottomAppBarTheme(color: Colors.white),
                         ),
+                  // theme: state.prefState.enableDarkMode
+                  //     ? ThemeData(
+                  //         useMaterial3: false,
+                  //         tooltipTheme: TooltipThemeData(
+                  //           waitDuration: Duration(milliseconds: 500),
+                  //         ),
+                  //         pageTransitionsTheme: pageTransitionsTheme,
+                  //         indicatorColor: accentColor,
+                  //         textSelectionTheme: TextSelectionThemeData(
+                  //           selectionHandleColor: accentColor,
+                  //         ),
+                  //         fontFamily: fontFamily,
+                  //         canvasColor: Colors.black,
+                  //         cardColor: const Color(0xFF1B1C1E),
+                  //         primaryColorDark: Colors.black,
+                  //         textButtonTheme:
+                  //             TextButtonThemeData(style: textButtonTheme),
+                  //         outlinedButtonTheme: OutlinedButtonThemeData(
+                  //             style: outlinedButtonTheme),
+                  //         colorScheme: ColorScheme.dark().copyWith(
+                  //           secondary: accentColor,
+                  //           primary: accentColor,
+                  //           background: Colors.black,
+                  //         ),
+                  //         bottomAppBarTheme:
+                  //             BottomAppBarTheme(color: const Color(0xFF1B1C1E)),
+                  //       )
+                  //     : ThemeData(
+                  //         useMaterial3: false,
+                  //         tooltipTheme: TooltipThemeData(
+                  //           waitDuration: Duration(milliseconds: 500),
+                  //         ),
+                  //         pageTransitionsTheme: pageTransitionsTheme,
+                  //         primaryColor: accentColor,
+                  //         indicatorColor: accentColor,
+                  //         textSelectionTheme: TextSelectionThemeData(
+                  //           selectionColor: accentColor,
+                  //         ),
+                  //         fontFamily: fontFamily,
+                  //         canvasColor: Colors.white,
+                  //         cardColor: Colors.white,
+                  //         primaryColorDark: hasAccentColor
+                  //             ? accentColor
+                  //             : const Color(0xFFb93700),
+                  //         primaryColorLight: hasAccentColor
+                  //             ? accentColor
+                  //             : const Color(0xFFb93700),
+                  //         scaffoldBackgroundColor: const Color(0xFFF3F4F6),
+                  //         tabBarTheme: TabBarThemeData(
+                  //           labelColor:
+                  //               hasAccentColor ? Colors.white : Colors.black,
+                  //           unselectedLabelColor: hasAccentColor
+                  //               ? Colors.white.withAlpha(166)
+                  //               : Colors.black.withAlpha(166),
+                  //         ),
+                  //         iconTheme: IconThemeData(
+                  //           color: hasAccentColor ? null : accentColor,
+                  //         ),
+                  //         appBarTheme: AppBarTheme(
+                  //           color: hasAccentColor ? accentColor : Colors.white,
+                  //           iconTheme: IconThemeData(
+                  //             color:
+                  //                 hasAccentColor ? Colors.white : accentColor,
+                  //           ),
+                  //           titleTextStyle: TextStyle(
+                  //               fontSize: 20,
+                  //               color: hasAccentColor
+                  //                   ? Colors.white
+                  //                   : Colors.black),
+                  //         ),
+                  //         textButtonTheme:
+                  //             TextButtonThemeData(style: textButtonTheme),
+                  //         outlinedButtonTheme: OutlinedButtonThemeData(
+                  //             style: outlinedButtonTheme),
+                  //         colorScheme: ColorScheme.fromSwatch().copyWith(
+                  //           secondary: accentColor,
+                  //           background: Colors.white,
+                  //         ),
+                  //         bottomAppBarTheme:
+                  //             BottomAppBarTheme(color: Colors.white),
+                  //       ),
                   title: kAppName,
                   onGenerateRoute: isMobile(context) ? null : generateRoute,
                   routes: isMobile(context)

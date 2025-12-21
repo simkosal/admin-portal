@@ -10,7 +10,7 @@ class Constants {
 }
 
 // TODO remove version once #46609 is fixed
-const String kClientVersion = '5.0.175';
+const String kClientVersion = '5.0.185';
 const String kMinServerVersion = '5.0.4';
 
 // const String kAppName = 'Invoice Ninja';
@@ -41,7 +41,7 @@ const String kTermsOfServiceURL = 'https://www.invoiceninja.com/terms';
 const String kBankingURL = 'https://invoiceninja.com/banking';
 const String kReferralURL = 'https://invoiceninja.com/referrals';
 const String kTransifexURL =
-    'https://www.transifex.com/invoice-ninja/invoice-ninja';
+    'https://www.transifex.com/invoice-ninja/invoice-ninja/';
 const String kWebhookSiteURL = 'https://requestcatcher.com';
 const String kZipTaxURL = 'https://zip-tax.com';
 const String kSourceCodeBackend =
@@ -334,6 +334,7 @@ const String kInvoiceStatusPartial = '3';
 const String kInvoiceStatusPaid = '4';
 const String kInvoiceStatusCancelled = '5';
 const String kInvoiceStatusReversed = '6';
+const String kInvoiceStatusReplaced = '7';
 
 const kInvoiceStatuses = {
   kInvoiceStatusPastDue: 'past_due',
@@ -345,6 +346,7 @@ const kInvoiceStatuses = {
   kInvoiceStatusReversed: 'reversed',
   kInvoiceStatusViewed: 'viewed',
   kInvoiceStatusBounced: 'bounced',
+  kInvoiceStatusReplaced: 'replaced',
 };
 
 const String kRecurringInvoiceStatusDraft = '1';
@@ -1171,3 +1173,6 @@ const String kActivityEInvoiceDeliveryFailure = '147';
 const String kActivityEExpenseCreated = '148';
 const String kActivityEmailCredit = '149';
 const String kActivityAccountDeleted = '150';
+const String kActivityMergedClients = '151';
+const String kActivityMergedVendors = '152';
+const String kActivityPurgedClient = '153';

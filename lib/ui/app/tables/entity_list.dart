@@ -4,7 +4,6 @@ import 'dart:math';
 
 // Flutter imports:
 import 'package:built_collection/built_collection.dart';
-import 'package:collection/collection.dart' show IterableNullableExtension;
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -334,7 +333,7 @@ class _EntityListState extends State<EntityList> {
                   : null,
             ) ??
             [])
-        .whereNotNull();
+        .nonNulls;
 
     return AppRefreshIndicator(
         onRefresh: () => widget.onRefreshed(context),
