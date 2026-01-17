@@ -16,7 +16,7 @@ class ContactsExampleApp extends StatelessWidget {
       home: HomePage(),
       routes: <String, WidgetBuilder>{
         '/add': (BuildContext context) => AddContactPage(),
-        // '/contactsList': (BuildContext context) => ContactListPage(),
+        '/contactsList': (BuildContext context) => ContactListPage(),
         '/nativeContactPicker': (BuildContext context) => ContactPickerPage(),
       },
     );

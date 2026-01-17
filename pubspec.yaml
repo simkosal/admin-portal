@@ -58,7 +58,7 @@ dependencies:
       ref: master
   version: ^3.0.2
   # flutter_launcher_icons: ^0.9.1
-  overflow_view: ^0.5.0
+  overflow_view:
   flutter_styled_toast: ^2.0.0
   permission_handler: ^11.0.1 # Disables Windows support to fix crash
   file_picker: ^10.3.2
@@ -85,7 +85,7 @@ dependencies:
   # idb_shim: ^1.11.1+1
   collection: ^1.15.0-nullsafety.4
   filesystem_picker: ^4.0.0
-  device_info_plus: ^12.2.0
+  device_info_plus: 11.2.0
   ios_open_subscriptions_settings: ^0.0.4
   redux: any
   in_app_purchase_android: any
@@ -100,7 +100,7 @@ dependency_overrides:
   intl: any
   navigation_builder: ^0.0.3
   states_rebuilder: ^6.3.0
-  win32: ^5.5.1
+  win32: 5.5.4
   image: ^4.5.4
   super_editor:
     git:
@@ -127,6 +127,7 @@ dependency_overrides:
       #ref: c75f59a7aca9139bb6b38001c705ac430d5d2946
       ref: a1526c5576761a76cbfbfcf27f54515c60d30ce3
   vector_math: 2.2.0
+  win32_registry: 1.1.0
 
 dev_dependencies:
   flutter_driver:
@@ -139,6 +140,7 @@ dev_dependencies:
   faker: ^2.0.0
   msix: ^3.5.1
   import_sorter: ^4.6.0
+  cupertino_icons:
 
 flutter:
   uses-material-design: true
